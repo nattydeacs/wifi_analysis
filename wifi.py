@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import random
 
 plt.rcParams['figure.dpi'] = 300
 plt.rcParams['savefig.dpi'] = 300
@@ -45,6 +46,9 @@ prices = pd.read_csv('wifiPrices.csv')
 plotdf = pd.merge(prices, df, left_on= 'mbps', right_on = 'mbps', how = 'left')
 
 
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['savefig.dpi'] = 300
+
 fig2 = sns.scatterplot(data=plotdf, x="price", y="utils", hue = 'company', 
                        palette=(['#6460AC', '#ed1c24', '#46b555']))
 sns.regplot(data=plotdf, x="price", y="utils", scatter=False, ax = fig2, ci = None, 
@@ -52,8 +56,10 @@ sns.regplot(data=plotdf, x="price", y="utils", scatter=False, ax = fig2, ci = No
 plt.xlabel("Price/month ($USD)")
 plt.ylabel("Customer's Utility (0-1 scale)")
 plt.title("The Astound 600mbps plan is the best deal")
+x = 1
 for i in range(plotdf.shape[0]):
- plt.text(x=plotdf.price[i]-1.5,y=plotdf.utils[i]-.05,s=str(plotdf.mbps[i])+'mbps', 
+ x = random.uniform(0, 0.5)
+ plt.text(x=plotdf.price[i]-(1.5),y=plotdf.utils[i]-.1*x,s=str(plotdf.mbps[i])+'mbps', 
           fontdict=dict(color='black',size=5.8))
  
 
